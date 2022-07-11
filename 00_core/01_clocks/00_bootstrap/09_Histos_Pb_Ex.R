@@ -53,6 +53,7 @@ mice <- rev(c("2019_Young-Iso", "BC12-Young-Iso-5.67-10B-B2-70100-AAGGCTAG",
 
 df$Mouse <- factor(df$Mouse, levels = mice)
 
+df$Cohort <- df$Batch
 ggplot(df, aes(x = Pred, y = Mouse, color=Sample, fill=Sample))+
         geom_density_ridges(alpha = .95, size = .3) +
         scale_fill_tableau() +

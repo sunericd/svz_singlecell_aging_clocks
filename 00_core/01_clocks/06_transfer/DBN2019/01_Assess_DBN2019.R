@@ -8,11 +8,11 @@ library(cowplot)
 setwd("~/Dropbox/svz_singlecell_aging_clocks/00_core/01_clocks/06_transfer")
 
 # Load all mice trained cell type specific bootstrap models and data
-celltype_models <- readRDS("../00_bootstrap/data/models_all_bootstrap.rds")
+celltype_models <- readRDS("../../00_bootstrap/data/models_all_bootstrap.rds")
 genes <- colnames(celltype_models[1,2][[1]][[1]])[-1]
 
 # Load DBN Pseudocell dataframe
-dbn <- readRDS("DBN2019/data/bootstrap_pseudocell_15.rds")
+dbn <- readRDS("data/bootstrap_pseudocell_15.rds")
 dbn.genes <- colnames(dbn[1,4][[1]][[1]])
 
 lognorm <- function(input) {
@@ -83,7 +83,7 @@ ggplot(d, aes(x= Predicted_Age, color = Age, fill = Age)) +
     #theme_bw() + theme(panel.grid.minor = element_blank()) +
     ylab("Tested On Dulken2019") + xlab("Trained On")
 
-ggsave("DBN2019/plots/density_grid_all.pdf", useDingbats=F)
+ggsave("plots/density_grid_all.pdf", useDingbats=F)
 
 
 # Filter and plot matching only
@@ -97,7 +97,7 @@ ggplot(d_filter, aes(x= Predicted_Age, color = Age, fill = Age)) +
     #theme_bw() + theme(panel.grid.minor = element_blank()) +
     ylab("Tested On Dulken2019") + xlab("Trained On")
 
-ggsave("DBN2019/plots/density_grid_matching.pdf", width = 4.59, height = 2.42,  useDingbats=F)
+ggsave("plots/density_grid_matching.pdf", width = 4.59, height = 2.42,  useDingbats=F)
 
 
 

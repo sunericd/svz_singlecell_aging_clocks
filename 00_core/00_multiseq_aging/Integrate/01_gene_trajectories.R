@@ -102,3 +102,62 @@ ggsave("plots/threegene_trajectories.pdf", width=7.14, height=3.53)
 
 
 
+
+# Other exploratory figures
+genes <- c("Alcam", "Ctnnd2", "Lsamp", "Itgb8", "Ntm")
+
+
+exps2 <- exps[rownames(exps) %in% genes, ]
+exprs_t <- t(as.matrix(exps2))
+meta_counts <- cbind(d, exprs_t)
+mclong <- meta_counts %>% pivot_longer(c(36:length(colnames(meta_counts))), names_to = "gene", values_to = "expression")
+mclong$Celltype.LowRes <- factor(mclong$Celltype.LowRes, levels = Celltypes)
+
+
+mclong2 <- mclong %>%
+  select(hash.ID, Age, orig.ident, Celltype.LowRes, gene, expression) %>%
+  group_by(hash.ID, Age, orig.ident, Celltype.LowRes, gene) %>%
+  filter(Celltype.LowRes %in% c("Astrocyte_qNSC")) %>%
+  filter(gene %in% c("Alcam", "Ctnnd2", "Itgb8")) %>%
+  summarize(Mean = mean(expression))
+
+
+ggplot(mclong2, aes(x = Age, y = Mean, color = gene)) +
+  facet_wrap(Celltype.LowRes~., scales= "free_y") +
+  geom_point() +
+  geom_smooth(method = "loess", aes(fill = gene)) +
+  theme_cowplot() +
+  scale_color_few() +
+  scale_fill_few()
+
+ggsave("plots/other_trajectories.pdf", width=3.53, height=3.53)
+
+# Other exploratory figures
+
+exps2 <- exps[rownames(exps) %in% genes, ]
+exprs_t <- t(as.matrix(exps2))
+meta_counts <- cbind(d, exprs_t)
+mclong <- meta_counts %>% pivot_longer(c(36:length(colnames(meta_counts))), names_to = "gene", values_to = "expression")
+mclong$Celltype.LowRes <- factor(mclong$Celltype.LowRes, levels = Celltypes)
+
+
+mclong2 <- mclong %>%
+  select(hash.ID, Age, orig.ident, Celltype.LowRes, gene, expression) %>%
+  group_by(hash.ID, Age, orig.ident, Celltype.LowRes, gene) %>%
+  filter(Celltype.LowRes %in% c("aNSC_NPC")) %>%
+  filter(gene %in% c("Alcam",  "Lsamp",  "Ntm")) %>%
+  summarize(Mean = mean(expression))
+
+
+ggplot(mclong2, aes(x = Age, y = Mean, color = gene)) +
+  facet_wrap(Celltype.LowRes~., scales= "free_y") +
+  geom_point() +
+  geom_smooth(method = "loess", aes(fill = gene)) +
+  theme_cowplot() +
+  scale_color_few() +
+  scale_fill_few()
+
+ggsave("plots/other_trajectories2.pdf", width=3.53, height=3.53)
+
+
+

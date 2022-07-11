@@ -66,7 +66,78 @@ for (CELLTYPE in celltypes) {
 }
 de_df <- tbl_df(de_df)
 
-saveRDS(de_df, paste0("Integrated/data/age_de_df_April2021.rds"))
+saveRDS(de_df, paste0("data/age_de_df_April2021.rds"))
+
+
+
+
+#########################################################################
+#===========================================================
+# Change between young (bio) and old (bio)
+#===========================================================
+
+svz <- readRDS("data/multi_intergrated_seurat_Dec2020.rds")
+svz@meta.data$BioAge <- 35-100*svz[[]]$Prolif_Lineage_Fraction_of_SVZ
+svz2 <- subset(svz, subset = BioAge < 7 | Age > 20)
+AgeClass <- svz2@meta.data$BioAge
+AgeClass[AgeClass > 20] <- "Old"
+AgeClass[AgeClass != "Old"] <- "Young"
+svz2$AgeClass <- AgeClass
+DefaultAssay(svz2) <- "RNA"
+svz2[["LMO"]] <- NULL
+svz2[["SCT"]] <- NULL
+
+# Assign as main identity
+svz2$Celltype_AgeClass <- paste0(svz2@meta.data$Celltype.LowRes, "_", svz2@meta.data$AgeClass)
+Idents(svz2) <- svz2[["Celltype_AgeClass"]]
+
+de_list <- vector(mode="list", length = length(celltypes))
+names(de_list) = celltypes
+
+#
+for (CELLTYPE in celltypes) {
+  print(CELLTYPE)
+  
+  # Find  cluster marker genes if possible
+  
+  # Change arguments to Find Markers as desired.
+  obj_de <- FindMarkers(object = svz2,
+                        test.use = "MAST",
+                        ident.1 = paste0(CELLTYPE, "_Old"),
+                        ident.2 = paste0(CELLTYPE, "_Young"),
+                        #max.cells.per.ident = 1000,
+                        min.pct = 0,
+                        logfc.threshold = 0,
+                        random.seed = 3)
+  
+  obj_de <- as.data.frame(obj_de)
+  obj_de <- rownames_to_column(obj_de, var = "gene")
+  obj_de$fdr <- p.adjust(obj_de$p_val, method = "fdr", n = length(rownames(svz2[["RNA"]]@data)))
+  obj_de$celltype <- CELLTYPE
+  obj_de$comparision <- "Old/Young"
+  obj_de$test <- "mast"
+  de_list[[CELLTYPE]] <- obj_de
+}
+
+# Combine all matrices into one dataframe
+de_df <- data.frame()
+for (CELLTYPE in celltypes) {
+  print(CELLTYPE)
+  de_df  <- rbind(de_df, de_list[[CELLTYPE]])
+}
+de_df <- tbl_df(de_df)
+
+saveRDS(de_df, paste0("data/bioage_de_df_March2022.rds"))
+
+
+
+
+
+
+
+
+
+
 
 
 #########################################################################

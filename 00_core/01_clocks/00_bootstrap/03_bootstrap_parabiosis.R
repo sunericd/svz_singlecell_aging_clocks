@@ -76,7 +76,7 @@ bootstrap.pseudocells <- function(df, size=15, n=100, replace="dynamic") {
 
 # Apply boostrap.pseudocells using map(). Takes ~20 minutes
 df2 <- by_celltype %>% mutate(pseudocell_parabiosis = map(parabiosisData, bootstrap.pseudocells))
-               n       
+               
 # Remove single cell data; keep just key metadata and pseudocells
 df2$parabiosisData <- NULL
 

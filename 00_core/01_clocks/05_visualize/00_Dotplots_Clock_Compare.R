@@ -27,7 +27,7 @@ p1 <- ggplot(data = d, mapping = aes(y = RNA, x = Celltype, size = R, color = MA
     theme(axis.text.x = element_text(angle = 30, hjust=1)) +
     theme(legend.position = "bottom")
 
-#ggsave(paste0("plots/dotplot_", Sys.Date(), "_leg_bioage", ".pdf"), p1, useDingbats=F, width=4.02, height=2.79) 
+ggsave(paste0("plots/dotplot_", Sys.Date(), "_leg_bioage", ".pdf"), p1, useDingbats=F, width=4.02, height=2.79) 
 
 #==============================================================================
 
