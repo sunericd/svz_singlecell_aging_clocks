@@ -9,17 +9,14 @@ library(tidyr)
 library(ggpubr)
 library(gridExtra)
 
+setwd("~/Dropbox/svz_singlecell_aging_clocks/00_core/00_multiseq_aging/Integrate")
+
+
 
 # gene sets and labels
 filenames <- c("data/ifn_gamma_response_genes_msigdb", "data/neurogenesis_regulation")
 filename_labels <- c("Interferon", "Regulation of Neurogenesis")
 single_genes <- c()
-
-# filenames <- c("data/up_senescence_genes", "data/casella_up_senescence", "data/nagano_up_senescence",
-#                "data/sasp_geneset", "data/GO_Cell_Adhesion_GO0007155", "data/ifn_gamma_response_genes_msigdb",
-#                "data/generation_neurons", "data/neurogenesis", "data/neurogenesis_regulation")
-# filename_labels <- c("CellAge_UP_Senescence", "Casella_UP_Senescence", "Nagano_UP_Senescence", "Reactome_SASP", "GO_Cell_Adhesion", "mSigDB_IFN_gamma_response", "generation_neurons", "neurogenesis", "neurogenesis_regulation")
-# single_genes <- c("cdkn2a", "mki67", "SScore", "G2MScore")
 
 all_labels <- c(filename_labels, single_genes)
 

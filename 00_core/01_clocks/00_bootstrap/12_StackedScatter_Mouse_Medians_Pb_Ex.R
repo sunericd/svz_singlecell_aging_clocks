@@ -13,6 +13,7 @@ CELLTYPES <- c("Oligodendro", "Microglia",  "Endothelial",
 ## BootstrapCell Predictions- Parabiosis
 
 setwd("~/Dropbox/svz_singlecell_aging_clocks/00_core/01_clocks/00_bootstrap")
+
 d <- readRDS("data/parabiosis_predictions.rds")
 d$Batch <- d$Mouse
 d$Batch[!grepl("2019", d$Batch)] <- "2"
@@ -25,7 +26,6 @@ d$Celltype <- factor(d$Celltype, levels = CELLTYPES)
 
 # get median for each mouse
 df_med <- d %>% filter(Batch=="2") %>% group_by(Mouse, Celltype, Sample) %>% summarise(median_Pred=median(Pred)) %>% ungroup()
-#df_med <- df_med %>% filter(Sample %in% c("Old Heterochronic", "Old Isochronic"))
 
 
 
@@ -48,9 +48,6 @@ ggsave("plots/parabiosis2_oldhet_oldiso_scatter.pdf", p, width=10 , height=6)
 
 
 
-
-
-
 d <- readRDS("data/exercise_predictions.rds")
 
 d$Batch <- as.character(d$Year)
@@ -61,7 +58,6 @@ d$Celltype <- factor(d$Celltype, levels = CELLTYPES)
 
 # get median for each mouse
 df_med <- d %>% group_by(Mouse, Celltype, Sample) %>% summarise(median_Pred=median(Pred)) %>% ungroup()
-#df_med <- df_med %>% filter(Sample %in% c("Old Exercise", "Old Sedentary"))
 
 
 ##############################

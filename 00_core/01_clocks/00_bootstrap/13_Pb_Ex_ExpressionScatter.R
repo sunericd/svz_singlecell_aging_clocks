@@ -5,7 +5,7 @@ library(glmnet)
 library(viridis)
 library(ggpubr)
 
-#setwd("~/Dropbox/svz_singlecell_aging_clocks/00_core/01_clocks/00_bootstrap")
+setwd("~/Dropbox/svz_singlecell_aging_clocks/00_core/01_clocks/00_bootstrap")
 
 fdr_cut <- 0.1
 fold_cut <- log(1.1)
@@ -15,8 +15,6 @@ models <- readRDS("data/models_all_bootstrap.rds")
 models$lognormalized <- NULL
 
 # DGE results
-#dgep <- readRDS("../../00_multiseq_aging/Integrate/data/pb_both_de_df_Sep2021.rds")
-#dgee <- readRDS("../../00_multiseq_aging/Integrate/data/ex_de_df_April2021.rds")
 dgep <- readRDS("../../00_multiseq_aging/Integrate/data/pb_both_de_df_Sep2021.rds")
 dgee <- readRDS("../../00_multiseq_aging/Integrate/data/ex_de_df_April2021.rds")
 
@@ -24,9 +22,6 @@ dgee <- readRDS("../../00_multiseq_aging/Integrate/data/ex_de_df_April2021.rds")
 # read in sc data
 dfe <- readRDS("data/bootstrap_pseudocell_15_exercise.rds")
 dfp <- readRDS("data/bootstrap_pseudocell_15_parabiosis.rds")
-
-#dfe <- dfe %>% ungroup %>% select(-c(data))
-#dfp <- dfp %>% ungroup %>% select(-c(data))
 
 
 # Lognormalize counts, including a pseudocount
@@ -71,12 +66,6 @@ for (i in c(1:6)) {
   selected_genes <- rownames(coef(lasso, s = 'lambda.min'))[coef(lasso, s = 'lambda.min')[,1]!= 0]
   colors <- ifelse(colnames(dfe_CT) %in% selected_genes, 'Used in Clock', 'Not in Clock')
   alphas <- ifelse(colnames(dfe_CT) %in% selected_genes, 1.0, 0.01)
-  
-  
-  #print(dim(dfe_CT))
-  #print(dim(dfp_CT))
-  #print(colnames(dfe_CT))
-  #print(colnames(dfp_CT))
   
   
   # Make dataframe

@@ -54,7 +54,7 @@ p2 <- ggplot(full.meanmed, aes(x = Age, y = BioAge)) +
   stat_cor( aes(label = ..r.label..), method = "spearman", label.x = 10, label.y = 25) +
   theme_pubr() +
   xlab("Chronological Age (Months)") +
-  ylab("Functional Age (Months)")
+  ylab("Biological Age (Months)")
 ggsave("plots/Age_vs_BioAge.pdf", width = 4, height = 3, useDingbats=F)
 
 p2 <- ggplot(full.meanmed, aes(x = predchron, y = predbio)) +
@@ -62,7 +62,7 @@ p2 <- ggplot(full.meanmed, aes(x = predchron, y = predbio)) +
   geom_smooth(method = 'lm', span = 10, formula = 'y ~ x', color="#27285C") +
   stat_cor( aes(label = ..r.label..), method = "spearman", label.x = 10, label.y = 25) +
   theme_pubr() +
-  xlab("Chronological Age (Months)") +
-  ylab("Functional Age (Months)")
+  xlab("Predicted Chronological Age (Months)") +
+  ylab("Predicted Biological Age (Months)")
 ggsave("plots/Predicted_Age_vs_BioAge.pdf", width = 4, height = 3, useDingbats=F)
 

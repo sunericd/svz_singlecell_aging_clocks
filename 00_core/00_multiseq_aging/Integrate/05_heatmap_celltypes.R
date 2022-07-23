@@ -22,6 +22,3 @@ top5 <- svz.markers %>% group_by(cluster) %>% top_n(n = 5, wt = avg_log2FC)
 p <- DoHeatmap(svz, features=top5$gene, label=F, group.by="Celltype.LowRes")
 ggsave("plots/heatmap_celltype.pdf", p, width=7.07, height=6.78)
 
-
-# OPC vs Oligodendro
-VlnPlot(svz, features="Pdgfra", idents=c("Oligodendro", "OPC"))

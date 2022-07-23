@@ -56,7 +56,7 @@ for (i in c(1:6)) {
     geom_vline(xintercept=c(-fold_cut, fold_cut), col="black") +
     geom_hline(yintercept=-log10(0.05), col="black") +
     labs(y= "-log10(FDR)", x = "Average Log Fold Change")
-  ggsave(paste0("plots/volcano_", ct, ".png"), p, width=7.07, height=6.78, dpi=500)
+  ggsave(paste0("plots/volcano_", ct, ".png"), p, width=6, height=3.5, dpi=500)
 }
 
 
@@ -114,7 +114,7 @@ for (i in c(1:6)) {
     geom_vline(xintercept=c(-fold_cut, fold_cut), col="black") +
     geom_hline(yintercept=-log10(fdr_cut), col="black") +
     labs(y= "-log10(FDR)", x = "Average Log Fold Change")
-  ggsave(paste0("plots/volcano_", ct, "_bio.png"), p, width=7.07, height=6.78, dpi=500)
+  ggsave(paste0("plots/volcano_", ct, "_bio.png"), p, width=6, height=3.5, dpi=500)
 }
 
 
