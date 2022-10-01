@@ -1,4 +1,4 @@
-# Predict Bootstrap Pseudocells using leave-one-batch-out cross validation
+# Plot expression of clock genes
 library(tidyverse)
 library(resample)
 library(glmnet)

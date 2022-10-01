@@ -12,10 +12,9 @@ library(gridExtra)
 setwd("~/Dropbox/svz_singlecell_aging_clocks/00_core/00_multiseq_aging/Integrate")
 
 
-
 # gene sets and labels
-filenames <- c("data/ifn_gamma_response_genes_msigdb", "data/neurogenesis_regulation")
-filename_labels <- c("Interferon", "Regulation of Neurogenesis")
+filenames <- c("data/ifn_gamma_response_genes_msigdb", "data/GO_term_negative_regulation_of_neurogenesis")
+filename_labels <- c("Interferon", "Negative Regulation of Neurogenesis")
 single_genes <- c()
 
 all_labels <- c(filename_labels, single_genes)

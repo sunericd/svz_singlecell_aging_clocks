@@ -13,8 +13,8 @@ setwd("~/Dropbox/svz_singlecell_aging_clocks/00_core/00_multiseq_aging/Integrate
 
 
 # gene sets and labels
-filenames <- c("data/ifn_gamma_response_genes_msigdb", "data/neurogenesis_regulation")
-filename_labels <- c("Interferon", "Regulation of Neurogenesis")
+filenames <- c("data/ifn_gamma_response_genes_msigdb", "data/GO_term_negative_regulation_of_neurogenesis")
+filename_labels <- c("Interferon", "Negative Regulation of Neurogenesis")
 single_genes <- c()
 
 all_labels <- c(filename_labels, single_genes)
@@ -71,7 +71,6 @@ for (ct in c("aNSC_NPC", "Oligodendro")){
     geom_boxplot(width=0.1, fill="lightgray") +
     scale_fill_tableau() +
     scale_color_tableau() +
-    #scale_fill_manual(values = c("skyblue","orange")) +
     stat_compare_means(aes_string(group = "AgeCond"), comparisons=comparisons, method="wilcox.test") +
     xlab("Condition") +
     facet_wrap(~Variable, scales="free_y") +

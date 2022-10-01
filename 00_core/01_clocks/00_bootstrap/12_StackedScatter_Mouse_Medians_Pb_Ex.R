@@ -48,6 +48,11 @@ ggsave("plots/parabiosis2_oldhet_oldiso_scatter.pdf", p, width=10 , height=6)
 
 
 
+##############################
+# Exercise
+##############################
+
+
 d <- readRDS("data/exercise_predictions.rds")
 
 d$Batch <- as.character(d$Year)
@@ -57,12 +62,8 @@ d$Sample <- factor(d$Sample, levels = c("Young Sedentary", "Young Exercise", "Ol
 d$Celltype <- factor(d$Celltype, levels = CELLTYPES)
 
 # get median for each mouse
-df_med <- d %>% group_by(Mouse, Celltype, Sample) %>% summarise(median_Pred=median(Pred)) %>% ungroup()
+df_med <- d %>% filter(Batch=="R2") %>% group_by(Mouse, Celltype, Sample) %>% summarise(median_Pred=median(Pred)) %>% ungroup()
 
-
-##############################
-# Exercise
-##############################
 
 p <- ggplot(df_med, aes(x=Sample, y=median_Pred, fill=Sample)) +
   geom_violin() +

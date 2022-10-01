@@ -1,4 +1,4 @@
-# Predict Bootstrap Pseudocells using leave-one-batch-out cross validation
+# Compare PB and EX data
 library(tidyverse)
 library(resample)
 library(glmnet)
@@ -20,8 +20,21 @@ dgee <- readRDS("../../00_multiseq_aging/Integrate/data/ex_de_df_April2021.rds")
 
 
 # read in sc data
-dfe <- readRDS("data/bootstrap_pseudocell_15_exercise.rds")
 dfp <- readRDS("data/bootstrap_pseudocell_15_parabiosis.rds")
+dfe <- readRDS("data/bootstrap_pseudocell_15_exercise.rds")
+
+# filter replicates
+dfp$Batch <- dfp$Mouse
+dfp$Batch[!grepl("2019", dfp$Batch)] <- "2"
+dfp$Batch[grepl("2019", dfp$Batch)] <- "1"
+dfp$Batch <- factor(dfp$Batch, levels = c("1", "2"))
+dfp <- dfp %>% filter(Batch=="2")
+dfp <- dfp[ , !(names(dfp) %in% c("Batch"))]
+
+dfe$Year <- factor(dfe$Year, levels = c("R1", "R2"))
+dfe <- dfe %>% filter(Year=="R2")
+
+
 
 
 # Lognormalize counts, including a pseudocount

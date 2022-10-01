@@ -8,6 +8,10 @@ setwd("/labs/abrunet1/Buckley/17.Clock/SvzClockV5/bootstrap/Exercise")
 #==================================================================================================
 print("Load Exercise 10x Data (v3 and v2 Combined")
 pb <- readRDS("data/joint_harmony_SVZ_2020-11-30.rds") # 26 samples, 92326 cells
+### NOTE: The above Seurat object contains all cells in "data/ex_seurat.SVZ.annotated.2020-04-27.rds" along with
+###       cells from an earlier pilot experiment. In all downstream analyses, we subset to just those cells that
+###       are in "data/ex_seurat.SVZ.annotated.2020-04-27.rds" (i.e. Batch=="R2"). In practice, this is identical
+###       to running all analyses with "data/ex_seurat.SVZ.annotated.2020-04-27.rds".
 pb.umi <- t(pb[["RNA"]]@counts)
 pb.genes <- colnames(pb.umi)
 
