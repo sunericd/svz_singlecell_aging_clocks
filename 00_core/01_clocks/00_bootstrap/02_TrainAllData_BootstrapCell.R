@@ -2,7 +2,7 @@
 
 library(tidyverse)
 library(glmnet)
-library(caret)
+#library(caret)
 
 setwd("~/Dropbox/svz_singlecell_aging_clocks/00_core/01_clocks/00_bootstrap")
 df <- readRDS("data/bootstrap_pseudocell_15.rds")
